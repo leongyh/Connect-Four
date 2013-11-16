@@ -8,6 +8,10 @@ Player::~Player(){
 
 }
 
-Player::makeMove(Board &b, int pos){
-	(*b).addPiece(this, int pos);
+void Player::makeMove(Board &b, int pos){
+	(*b).addPiece(this, pos);
+}
+
+char Player::getColor(){
+	return color;
 }

@@ -1,5 +1,5 @@
+#pragma once
 #include "Board.h"
-#include "Chip.h"
 
 class Player
 {
@@ -7,8 +7,8 @@ private:
 	char color;
 
 public:
-	Player(arguments);
+	Player(char c);
 	~Player();
-
-	/* data */
+	void makeMove(Board &b, int pos);
+	char getColor();
 };

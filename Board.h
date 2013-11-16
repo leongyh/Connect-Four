@@ -1,10 +1,11 @@
+#pragma once
 #include "Player.h"
 #include "Chip.h"
 
 class Board{
 private:
-	int const col_size = 7;
-	int const row_size = 6;
+	static const int col_size = 7;
+	static const int row_size = 6;
 
 	/*
 	Possible States:
@@ -22,7 +23,7 @@ private:
 	bool checkWin();
 
 public:
-	Board();
+	Board(Player &p1, Player &p2);
 	~Board();
 	bool addPiece(int pos, Chip &c);
 	int getState();

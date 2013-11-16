@@ -1,3 +1,5 @@
+#include "Chip.h"
+
 Chip::Chip(Player *p, int c, int r){
 	owner = p;
 	col = c;

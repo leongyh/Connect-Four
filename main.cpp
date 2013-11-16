@@ -1,15 +1,18 @@
 #include <stdio.h>
+#include <iostream>
 #include <cstdlib>
 
 #include "Board.h"
 #include "Player.h"
 
+using namespace std;
 
 int main(int argc, char *argv[]){
 	char p1, p2;
 
-	Board game;
-	Player player1, player2;
+	Board *game;
+	Player *player1;
+	Player *player2;
 	Player *turn;
 
 	printf("%s\n", "Welcome to Hung's Connect-Four (ASCII version)!");
@@ -20,21 +23,28 @@ int main(int argc, char *argv[]){
 
 	player1 = new Player(p1);
 	player2 = new Player(p2);
-	game = new Board(player1, player2);
+	game = new Board(*player1, *player2);
 
-	turn = &player1;
+	turn = player1;
 
-	while(!game.getState()){
-		(*turn).makeMove(game)
+	while(!(*game).getState()){
+		int move;
 
-		if(turn == &player1){
-			turn = &player2;
-		} else if(turn == &player2){
-			turn = & player1;
+		(*game).printBoard();
+
+		printf("Color %c turn. Please select a column (0-6) to insert your chip into: ", (*turn).getColor());
+		cin >> move; //assert 0-6
+		
+		(*turn).makeMove(*game, move);
+
+		if(turn == player1){
+			turn = player2;
+		} else if(turn == player2){
+			turn = player1;
 		}
 	}
 
-	switch(game.getState()){
+	switch((*game).getState()){
 		case 1:
 			printf("Player 1 (%c) wins!\n", p1);
 			break;
