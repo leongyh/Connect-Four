@@ -29,34 +29,35 @@ bool Board::addPiece(Player &p, int pos){
 	int i = 0;
 	Chip *c;
 
-	printf("%s%c\n", "Adding a piece of player: ", p.getColor());
+	//printf("%s%c\n", "Adding a piece of player: ", p.getColor());
 
 	while(i < col_size && !added){
-		printf("Col checking iteration: %d\n", i);
+		//printf("Col checking iteration: %d\n", i);
 		if((board[pos + i*row_size]).isEmpty() && !added){
 			//Chip *temp = &board[pos + i*row_size];
 			c = new Chip(&p, pos, i);
-
-			printf("Created chip at pos (%d, %d).\n", (*c).getCol(), (*c).getRow());
 
 			board[pos + i*row_size] = *c;
 			added = true;
 
 			//delete &temp;
+
+			//printf("Added chip of player %c's to position (%d, %d).\n", p.getColor(), (*c).getCol(), (*c).getRow());
 		}
 
 		i++;
 	}
 
-	printf("Added chip of player %c's to position (%d, %d).\n", p.getColor(), (*c).getCol(), (*c).getRow());
-
 	//check if invalid move and if it is a draw
 	if(!added){
+		//printf("%s\n", "Checking if draw or invalid move.");
+
 		if(checkDraw())	state = 3;
 
-		printf("%s\n", "Cannot add a chip in that position.");
 		return	 false;
 	}
+
+	//printf("%s\n", "Checking if win.");
 
 	if(checkWin(*c)){
 		Player* p = (*c).getOwner();
@@ -64,7 +65,7 @@ bool Board::addPiece(Player &p, int pos){
 		if(p == player1) state = 1;
 		else if(p == player2) state = 2;
 		else{
-			printf("%s\n", "Unknown player added a chip.");
+			//printf("%s\n", "Unknown player added a chip.");
 			//exit(0);
 		}
 	}
@@ -80,7 +81,7 @@ bool Board::checkDraw(){
 	for(int i = 0; i < col_size; i++)
 		for (int j = 0; j < row_size; j++)
 		{
-			if(&board[i + j*col_size] == NULL) return false;
+			if((board[j + i*row_size]).isEmpty()) return false;
 		}
 
 	return true;
@@ -101,7 +102,7 @@ bool Board::checkWin(Chip &c){
 		}
 	}
 
-	for(int i = 0; i <= straight.size(); i++){
+	for(int i = 0; i < straight.size(); i++){
 		if((*(straight.at(i))).getOwner() == p){
 			count++;
 		} else{
@@ -121,7 +122,7 @@ bool Board::checkWin(Chip &c){
 		}
 	}
 
-	for(int i = 0; i <= straight.size(); i++){
+	for(int i = 0; i < straight.size(); i++){
 		if((*(straight.at(i))).getOwner() == p){
 			count++;
 		} else{
@@ -141,7 +142,7 @@ bool Board::checkWin(Chip &c){
 		}
 	}
 
-	for(int i = 0; i <= straight.size(); i++){
+	for(int i = 0; i < straight.size(); i++){
 		if((*(straight.at(i))).getOwner() == p){
 			count++;
 		} else{
@@ -161,7 +162,7 @@ bool Board::checkWin(Chip &c){
 		}
 	}
 
-	for(int i = 0; i <= straight.size(); i++){
+	for(int i = 0; i < straight.size(); i++){
 		if((*(straight.at(i))).getOwner() == p){
 			count++;
 		} else{
@@ -177,5 +178,24 @@ bool Board::checkWin(Chip &c){
 }
 
 void Board::printBoard(){
+	//draw position markers
+	printf("\n%s\n", "+--Select a position to insert chip below-+");
+	printf("%s\n\n", "+--1--+--2--+--3--+--4--+--5--+--6--+--7--+");
+
+	//draw board
+	printf("%s\n", "+-----+-----+-----+-----+-----+-----+-----+");
+	for (int i = col_size - 1; i >=0; i--){
+		for (int j = 0; j < row_size; j++){
+
+			if(!(board[j + i*row_size]).isEmpty()){
+				printf("|  %c  ", (*board[j + i*row_size].getOwner()).getColor());
+			} else{
+				printf("%s", "|     ");
+			}
+			
+		}
+		printf("|\n%s\n", "+-----+-----+-----+-----+-----+-----+-----+");
+	}
+
 	return;
 }

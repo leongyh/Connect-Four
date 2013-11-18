@@ -9,6 +9,7 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 	char p1, p2;
+	bool namePass = false;
 
 	Board *game;
 	Player *player1;
@@ -16,8 +17,19 @@ int main(int argc, char *argv[]){
 	Player *turn;
 
 	printf("%s\n", "Welcome to Hung's Connect-Four (ASCII version)!");
-	printf("%s", "Welcome, Player 1. Please select a color (R/B): ");
-	cin >> p1; //assert R/B
+
+	while(!namePass){
+		printf("%s", "Welcome, Player 1. Please select a color (R/B): ");
+		cin >> p1; 
+
+		if(p1 == (char)'R' || p1 == (char)'B'){
+			namePass = true;
+		}
+		else{
+			printf("%s\n", "Please enter 'R' or 'B' only.");
+		}
+	}
+	
 	(p1 == 'B') ? p2 = 'R' : p2 = 'B';
 	printf("%s%c\n", "Welcome, Player 2. Your color is: ", p2);
 
@@ -29,21 +41,37 @@ int main(int argc, char *argv[]){
 
 	while(!(*game).getState()){
 		int move;
+		bool moveMade = false;
 
+		printf("\n%s\n", "+------------------------------------------------+");
 		(*game).printBoard();
+		printf("\n%s\n", "+------------------------------------------------+");
 
-		printf("Color %c turn. Please select a column (0-6) to insert your chip into: ", (*turn).getColor());
-		cin >> move; //assert 0-6
-		
-		(*game).addPiece(*turn, move);
-		printf("%s\n", "Piece added!");
+		printf("MESSAGE: Color %c's turn. Please select a column (1-7) to insert your chip into: ", (*turn).getColor());
+		cin >> move; 
 
-		if(turn == player1){
+		//asserts 1-7
+		if(move < 1 || move > 7){
+			printf("%s\n", "MESSAGE: Invalid column. Select a number from 0 to 6 only.");
+			continue;
+		}
+
+		moveMade = (*game).addPiece(*turn, move - 1);
+
+		if(moveMade && (turn == player1)){
+			//printf("%s\n", "Piece added!");
 			turn = player2;
-		} else if(turn == player2){
+		} else if(moveMade && (turn == player2)){
+			//printf("%s\n", "Piece added!");
 			turn = player1;
+		} else{
+			printf("%s\n", "MESSAGE: Cannot add a piece at that position. Please try again.");
 		}
 	}
+
+	printf("\n%s\n", "+------------------------------------------------+");
+	(*game).printBoard();
+	printf("\n%s\n", "+------------------------------------------------+");
 
 	switch((*game).getState()){
 		case 1:

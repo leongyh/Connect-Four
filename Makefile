@@ -15,5 +15,8 @@ $(BINDIR)/%.o: $(SRCDIR)/%.cpp
 	mkdir -p bin
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
+clean:
+	rm $(BINDIR)/*
+
 run:
 	$(BINDIR)/c4
