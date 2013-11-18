@@ -8,7 +8,7 @@ SOURCES = $(shell find $(SRCDIR) -type f \( -iname '*.cpp' ! -iname 'Main.cpp' !
 _OBJS = $(patsubst %.cpp,%.o,$(SOURCES))
 OBJS = $(patsubst $(SRCDIR)/%,$(BINDIR)/%,$(_OBJS))
 
-all: $(OBJS) $(BINDIR)/Main.o
+all: $(OBJS) $(BINDIR)/main.o
 	$(CC) $^ -o $(BINDIR)/c4
 
 $(BINDIR)/%.o: $(SRCDIR)/%.cpp

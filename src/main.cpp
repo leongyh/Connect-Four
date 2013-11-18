@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
 
 #include "Board.h"
 #include "Player.h"
@@ -36,6 +36,7 @@ int main(int argc, char *argv[]){
 		cin >> move; //assert 0-6
 		
 		(*game).addPiece(*turn, move);
+		printf("%s\n", "Piece added!");
 
 		if(turn == player1){
 			turn = player2;

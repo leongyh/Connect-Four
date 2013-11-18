@@ -2,10 +2,13 @@
 #include "Player.h"
 #include "Chip.h"
 
+class Player;
+class Chip;
+
 class Board{
 private:
-	static const int col_size = 7;
-	static const int row_size = 6;
+	static const int col_size = 6;
+	static const int row_size = 7;
 
 	/*
 	Possible States:
@@ -17,10 +20,11 @@ private:
 	int state;
 
 	Chip* board;
-	Player* player1, player2;
+	Player* player1;
+	Player* player2;
 
 	bool checkDraw();
-	bool checkWin();
+	bool checkWin(Chip &c);
 
 public:
 	Board(Player &p1, Player &p2);
