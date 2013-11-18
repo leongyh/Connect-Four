@@ -9,6 +9,5 @@ private:
 public:
 	Player(char c);
 	~Player();
-	void makeMove(Board &b, int pos);
 	char getColor();
 };

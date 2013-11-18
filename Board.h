@@ -25,7 +25,7 @@ private:
 public:
 	Board(Player &p1, Player &p2);
 	~Board();
-	bool addPiece(int pos, Chip &c);
+	bool addPiece(Player &p, int pos);
 	int getState();
 	void printBoard();
 };

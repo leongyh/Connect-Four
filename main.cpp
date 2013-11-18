@@ -35,7 +35,7 @@ int main(int argc, char *argv[]){
 		printf("Color %c turn. Please select a column (0-6) to insert your chip into: ", (*turn).getColor());
 		cin >> move; //assert 0-6
 		
-		(*turn).makeMove(*game, move);
+		(*game).addPiece(*turn, move);
 
 		if(turn == player1){
 			turn = player2;

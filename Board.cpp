@@ -13,13 +13,14 @@ Board::~Board(){
 	delete [] board;
 }
 
-bool Board::addPiece(Player &p; int pos){
+bool Board::addPiece(Player &p, int pos){
 	bool added = false;
 	int i = 0;
-	Chip c = new Chip(pos, i);
+	Chip c;
 
 	while(i < row_size || !added){
 		if(board[pos + i*col_size] == NULL && !added){
+			c = new Chip(pos, i);
 			board[pos + i*col_size] == c;
 			added = true;
 		}
